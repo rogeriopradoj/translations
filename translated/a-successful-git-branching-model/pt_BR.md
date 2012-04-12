@@ -226,13 +226,13 @@ Feel free to add your comments!
 
 
 
-[Screen-shot-2009-12-24-at-11.32.03]: http://nvie.com/img/2009/12/Screen-shot-2009-12-24-at-11.32.03.png
-[centr-decentr]: http://nvie.com/img/2010/01/centr-decentr.png
-[bm002]: http://nvie.com/img/2009/12/bm002.png
-[fb]: http://nvie.com/img/2009/12/fb.png
-[merge-without-ff]: http://nvie.com/img/2010/01/merge-without-ff.png
-[hotfix-branches1]:http://nvie.com/img/2010/01/hotfix-branches1.png
-[pdf]: http://nvie.com/img/pdf.png
+[Screen-shot-2009-12-24-at-11.32.03]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/Screen-shot-2009-12-24-at-11.32.03.png
+[centr-decentr]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/centr-decentr.png
+[bm002]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/bm002.png
+[fb]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/fb.png
+[merge-without-ff]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/merge-without-ff.png
+[hotfix-branches1]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/hotfix-branches1.png
+[pdf]: http://rogeriopradoj.github.com/translations/images/a-successful-git-branching-model/pdf.png
 
 
 

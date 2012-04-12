@@ -24,7 +24,7 @@ Criado para manter as traduções que faço de artigos interessantes da web.
 ###Feitos
 * [1] **Um modelo bem sucedido para branch no Git**
 
-[1]: https://github.com/rogeriopradoj/translations/blob/master/translated/a-successful-git-branching-model.md
+[1]: https://github.com/rogeriopradoj/translations/blob/master/translated/a-successful-git-branching-model/pt_BR.md
 
 [blog]: http://rogeriopradoj.com
 [github]: http://github.com/rogeriopradoj

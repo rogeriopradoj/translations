@@ -1,9 +1,9 @@
 #Translations by rogeriopradoj
 
-[blog]
-[github]
-[twitter]
-[about.me]
+* [blog][blog]
+* [github][github]
+* [twitter][twitter]
+* [about.me][about.me]
 
 ##en
 Designed to keep the translations I do of some interesting articles I find in web.

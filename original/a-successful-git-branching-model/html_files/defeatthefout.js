@@ -1,0 +1,1 @@
+(function(){var a=document,c=a.documentElement,b=a.createElement("style");if(c.style.MozTransform===""){b.textContent="body{visibility:hidden}";c.firstChild.appendChild(b);a=function(){b.parentNode&&b.parentNode.removeChild(b)};addEventListener("load",a,false);setTimeout(a,3E3)}})();

@@ -4,7 +4,7 @@ Published: January 05, 2010
 
 In this post I present the development model that I’ve introduced for all of my projects (both at work and private) about a year ago, and which has turned out to be very successful. I’ve been meaning to write about it for a while now, but I’ve never really found the time to do so thoroughly, until now. I won’t talk about any of the projects’ details, merely about the branching strategy and release management.
 
-
+![Screen-shot-2009-12-24-at-11.32.03][Screen-shot-2009-12-24-at-11.32.03]
 
 It focuses around Git as the tool for the versioning of all of our source code.
 
@@ -22,7 +22,7 @@ Enough about the tools, let’s head onto the development model. The model that 
 
 The repository setup that we use and that works well with this branching model, is that with a central “truth” repo. Note that this repo is only considered to be the central one (since Git is a DVCS, there is no such thing as a central repo at a technical level). We will refer to this repo as origin, since this name is familiar to all Git users.
 
-
+![centr-decentr][centr-decentr]
 
 Each developer pulls and pushes to origin. But besides the centralized push-pull relationships, each developer may also pull changes from other peers to form sub teams. For example, this might be useful to work together with two or more developers on a big new feature, before pushing the work in progress to origin prematurely. In the figure above, there are subteams of Alice and Bob, Alice and David, and Clair and David.
 
@@ -30,7 +30,7 @@ Technically, this means nothing more than that Alice has defined a Git remote, n
 
 ##The main branches
 
-
+![bm002][bm002]
 
 At the core, the development model is greatly inspired by existing models out there. The central repo holds two main branches with an infinite lifetime:
 
@@ -61,6 +61,7 @@ By no means are these branches “special” from a technical perspective. The b
 
 ###Feature branches
 
+![fb][fb]
 
 May branch off from: develop
 Must merge back into: develop
@@ -88,7 +89,7 @@ Deleted branch myfeature (was 05e9557).
 $ git push origin develop
 The --no-ff flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward. This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. Compare:
 
-
+![merge-without-ff][merge-without-ff]
 
 In the latter case, it is impossible to see from the Git history which of the commit objects together have implemented a feature—you would have to manually read all the log messages. Reverting a whole feature (i.e. a group of commits), is a true headache in the latter situation, whereas it is easily done if the --no-ff flag was used.
 
@@ -150,6 +151,7 @@ $ git branch -d release-1.2
 Deleted branch release-1.2 (was ff452fe).
 ###Hotfix branches
 
+![hotfix-branches1][hotfix-branches1]
 
 May branch off from: master
 Must merge back into: develop and master
@@ -211,7 +213,21 @@ A high-quality PDF version of the figure is provided here. Go ahead and hang it 
 
 Update: And for anyone who requested it: here’s the gitflow-model.src.key of the main diagram image (Apple Keynote).
 
-
+![pdf][pdf]
 Git-branching-model.pdf
 
 Feel free to add your comments!
+
+
+
+
+
+
+
+[Screen-shot-2009-12-24-at-11.32.03]: http://nvie.com/img/2009/12/Screen-shot-2009-12-24-at-11.32.03.png
+[centr-decentr]: http://nvie.com/img/2010/01/centr-decentr.png
+[bm002]: http://nvie.com/img/2009/12/bm002.png
+[fb]: http://nvie.com/img/2009/12/fb.png
+[merge-without-ff]: http://nvie.com/img/2010/01/merge-without-ff.png
+[hotfix-branches1]:http://nvie.com/img/2010/01/hotfix-branches1.png
+[pdf]: http://nvie.com/img/pdf.png

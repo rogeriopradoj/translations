@@ -6,13 +6,13 @@ In this post I present the development model that I’ve introduced for all of m
 
 ![Screen-shot-2009-12-24-at-11.32.03][Screen-shot-2009-12-24-at-11.32.03]
 
-It focuses around Git as the tool for the versioning of all of our source code.
+It focuses around [Git][Git] as the tool for the versioning of all of our source code.
 
 ##Why git?
 
-For a thorough discussion on the pros and cons of Git compared to centralized source code control systems, see the web. There are plenty of flame wars going on there. As a developer, I prefer Git above all other tools around today. Git really changed the way developers think of merging and branching. From the classic CVS/Subversion world I came from, merging/branching has always been considered a bit scary (“beware of merge conflicts, they bite you!”) and something you only do every once in a while.
+For a thorough discussion on the pros and cons of Git compared to centralized source code control systems, [see][see] [the][the] [web][web]. There are plenty of flame wars going on there. As a developer, I prefer Git above all other tools around today. Git really changed the way developers think of merging and branching. From the classic CVS/Subversion world I came from, merging/branching has always been considered a bit scary (“beware of merge conflicts, they bite you!”) and something you only do every once in a while.
 
-But with Git, these actions are extremely cheap and simple, and they are considered one of the core parts of your daily workflow, really. For example, in CVS/Subversion books, branching and merging is first discussed in the later chapters (for advanced users), while in every Git book, it’s already covered in chapter 3 (basics).
+But with Git, these actions are extremely cheap and simple, and they are considered one of the core parts of your daily workflow, really. For example, in CVS/Subversion [books][books], branching and merging is first discussed in the later chapters (for advanced users), while in [every][every_1] [Git][Git_1] [book][book], it’s already covered in chapter 3 (basics).
 
 As a consequence of its simplicity and repetitive nature, branching and merging are no longer something to be afraid of. Version control tools are supposed to assist in branching/merging more than anything else.
 
@@ -211,10 +211,10 @@ While there is nothing really shocking new to this branching model, the “big p
 
 A high-quality PDF version of the figure is provided here. Go ahead and hang it on the wall for quick reference at any time.
 
-Update: And for anyone who requested it: here’s the gitflow-model.src.key of the main diagram image (Apple Keynote).
+Update: And for anyone who requested it: here’s the [gitflow-model.src.key][gitflow-model.src.key] of the main diagram image (Apple Keynote).
 
 ![pdf][pdf]
-Git-branching-model.pdf
+[Git-branching-model.pdf][Git-branching-model.pdf]
 
 Feel free to add your comments!
 
@@ -231,3 +231,19 @@ Feel free to add your comments!
 [merge-without-ff]: http://nvie.com/img/2010/01/merge-without-ff.png
 [hotfix-branches1]:http://nvie.com/img/2010/01/hotfix-branches1.png
 [pdf]: http://nvie.com/img/pdf.png
+
+
+
+
+
+
+[Git]: http://git-scm.com
+[see]: http://whygitisbetterthanx.com/
+[the]: http://www.looble.com/git-vs-svn-which-is-better/
+[web]: http://git.or.cz/gitwiki/GitSvnComparsion
+[books]: http://svnbook.red-bean.com/
+[every_1]: http://book.git-scm.com/
+[Git_1]: http://pragprog.com/titles/tsgit/pragmatic-version-control-using-git
+[book]: http://github.com/progit/progit
+[gitflow-model.src.key]: http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip
+[Git-branching-model.pdf]: http://github.com/downloads/nvie/gitflow/Git-branching-model.pdf

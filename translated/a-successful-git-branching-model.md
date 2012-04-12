@@ -34,8 +34,9 @@ Technically, this means nothing more than that Alice has defined a Git remote, n
 
 At the core, the development model is greatly inspired by existing models out there. The central repo holds two main branches with an infinite lifetime:
 
-master
-develop
+* master
+* develop
+
 The master branch at origin should be familiar to every Git user. Parallel to the master branch, another branch exists called develop.
 
 We consider origin/master to be the main branch where the source code of HEAD always reflects a production-ready state.
@@ -52,9 +53,10 @@ Next to the main branches master and develop, our development model uses a varie
 
 The different types of branches we may use are:
 
-Feature branches
-Release branches
-Hotfix branches
+* Feature branches
+* Release branches
+* Hotfix branches
+
 Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets. We will walk through them in a minute.
 
 By no means are these branches “special” from a technical perspective. The branch types are categorized by how we use them. They are of course plain old Git branches.

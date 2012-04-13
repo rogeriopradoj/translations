@@ -1,85 +1,160 @@
-#A successful Git branching model
+#Um modelo bem sucedido para branch no Git
 
-Published: January 05, 2010
+>Tradução livre do artigo "A successful Git branching model", disponível no site
+>http://nvie.com/posts/a-successful-git-branching-model/, publicado em 05 de
+>janeiro de 2010.
 
-In this post I present the development model that I’ve introduced for all of my projects (both at work and private) about a year ago, and which has turned out to be very successful. I’ve been meaning to write about it for a while now, but I’ve never really found the time to do so thoroughly, until now. I won’t talk about any of the projects’ details, merely about the branching strategy and release management.
+Nesse post apresento o modelo de desenvolvimento que comecei a usar em todos os
+meus projetos (tanto no trabalho como nos pessoais) mais ou menos um ano
+atrás e que se revelou ser bem sucedido. Eu venho pensando em escrever sobre
+isso já faz um tempo, mas nunca tinha encontrado o momento para fazê-lo de
+forma cuidadosa, até agora.
 
 ![Screen-shot-2009-12-24-at-11.32.03][Screen-shot-2009-12-24-at-11.32.03]
 
-It focuses around [Git][Git] as the tool for the versioning of all of our source code.
+Esse modelo utiliza o [Git][Git] como ferramenta para versionamento de todo o meu
+código fonte.
 
-##Why git?
+##Por que o git?
 
-For a thorough discussion on the pros and cons of Git compared to centralized source code control systems, [see][see] [the][the] [web][web]. There are plenty of flame wars going on there. As a developer, I prefer Git above all other tools around today. Git really changed the way developers think of merging and branching. From the classic CVS/Subversion world I came from, merging/branching has always been considered a bit scary (“beware of merge conflicts, they bite you!”) and something you only do every once in a while.
+Para uma discussão aprofundada sobre os pros e os contras do Git comparado
+aos sistemas centralizados de controle de versão, [veja][see] [a][the]
+[web][web]. Existem várias "guerrinhas" rolando por aí. Como desenvolvedor,
+eu prefiro o Git atualmente sobre todos as outras ferramentas. O Git
+realmente mudou a maneira com que os desenvolvedores pensam sobre merging e
+branching. No mundo clássico do CVS/Subversion do qual eu vim,
+merging/branching sempre foi considerado um pouco assustador ("cuidado com os
+conflitos de merge, eles mordem!") e era algo que você fazia de vez em quando.
 
-But with Git, these actions are extremely cheap and simple, and they are considered one of the core parts of your daily workflow, really. For example, in CVS/Subversion [books][books], branching and merging is first discussed in the later chapters (for advanced users), while in [every][every_1] [Git][Git_1] [book][book], it’s already covered in chapter 3 (basics).
+Mas com o Git, essas ações são extremamente simples e fáceis, e elas são
+consideradas uma das partes principais do seu fluxo de trabalho diário, de
+verdade. Por exemplo, nos [livros][books] de CVS/Subversion, branching e
+merging começa a ser discutido nos últimos capítulos (para usuários avançados),
+enquanto em [todo][every_1] [livro][book] do [Git][Git_1], o assunto já é coberto
+no capítulo 3 (básico).
 
-As a consequence of its simplicity and repetitive nature, branching and merging are no longer something to be afraid of. Version control tools are supposed to assist in branching/merging more than anything else.
+Por consequência de sua simplicidade e natureza repetitiva, o branching e o
+merging não são mais coisas para se ter medo. As ferrramentas de controle de
+versão estão aí para auxiliar nesse assunto mais do que tudo.
 
-Enough about the tools, let’s head onto the development model. The model that I’m going to present here is essentially no more than a set of procedures that every team member has to follow in order to come to a managed software development process.
+Tendo o suficiente sobre as ferramentas, vamos nos aprofundar no modelo de
+desenvolvimento. O modelo que vou apresentar aqui não é essencialmente nada
+mais do que um conjunto de procedimentos que todo membro da equipe precisa
+seguir para que se tenha um processo gerenciável de desenvolvimento de
+software.
 
-##Decentralized but centralized
+##Descentralizado, mas centralizado
 
-The repository setup that we use and that works well with this branching model, is that with a central “truth” repo. Note that this repo is only considered to be the central one (since Git is a DVCS, there is no such thing as a central repo at a technical level). We will refer to this repo as ``origin``, since this name is familiar to all Git users.
+A configuração do repositório que usamos e que funciona bem com esse modelo de
+branching é aquele com um repositório central "truth(verdade)". Perceba que esse
+repositório é apenas *considerado* como central (isso porque o Git é um DVCS,
+Distributed Version Control System ou Sistema Descentralizado de Controle de
+Versão, e não existe nada similar tecnicamente a um reposítorio central).
+Iremos nos referir a esse repositório como ``origin``, uma vez que esse nome
+é familiar para todos usuários do Git.
 
 ![centr-decentr][centr-decentr]
 
-Each developer pulls and pushes to origin. But besides the centralized push-pull relationships, each developer may also pull changes from other peers to form sub teams. For example, this might be useful to work together with two or more developers on a big new feature, before pushing the work in progress to ``origin`` prematurely. In the figure above, there are subteams of Alice and Bob, Alice and David, and Clair and David.
+Todo desenvolvedor faz *pulls* e *pushes* no origin. Mas paralelamente às
+relações centralizadas de push-pull, cada um dos desenvolvedores também pode
+fazer pull das mudanças dos outros colegas para formar subequipes. Por exemplo,
+isso poderia ser útil para que dois os mais desenvolvedores trabalhassem junto
+em um nova funcionalidade grande, antes de fazer push prematuramente do
+trabalho em andamento para ``origin``. Na figura acima, temos subequipes da
+Alice com o Bob, da Alice com o David e da Clair com o David.
 
-Technically, this means nothing more than that Alice has defined a Git remote, named ``bob``, pointing to Bob’s repository, and vice versa.
+Tecnicamente, isso não é nada mais do que a Alice definido um Git remote,
+chamado de ``bob``, apontando para o repositório do Bob e vice-versa.
 
-##The main branches
+##Os branches principais
 
 ![bm002][bm002]
 
-At the core, the development model is greatly inspired by existing models out there. The central repo holds two main branches with an infinite lifetime:
+No núcleo, o modelo de desenvolvimento é fortemente inspirado pelos modelos
+existentes lá dentro. O repositório central guarda dois branches principais
+com um tempo de vida infinito:
 
 * ``master``
 * ``develop``
 
-The ``master`` branch at ``origin`` should be familiar to every Git user. Parallel to the ``master`` branch, another branch exists called ``develop``.
+O branch ``master`` em ``origin`` deve ser familiar para todo usuário do Git.
+Paralelamente ao branch ``master``, tem outro branch chamado ``develop``.
 
-We consider ``origin/master`` to be the main branch where the source code of ``HEAD`` always reflects a production-ready state.
+Consideramos o ``origin/master`` como sendo o branch principal onde o código
+fonte de ``HEAD`` sempre reflete um estado pronto para ir para produção.
 
-We consider ``origin/develop`` to be the main branch where the source code of ``HEAD`` always reflects a state with the latest delivered development changes for the next release. Some would call this the “integration branch”. This is where any automatic nightly builds are built from.
+Consideramos ``origin/develop`` como sendo o branch principal ondeo o código
+fonte de ``HEAD`` sempre reflete um estado com as últimas alterações no
+desenvolvimento entregues para a próxima versão. Alguns podem chamá-lo
+de "branch de integração". É a partir daqui que todos os builds noturnos são
+automaticamente gerados.
 
-When the source code in the ``develop`` branch reaches a stable point and is ready to be released, all of the changes should be merged back into ``master`` somehow and then tagged with a release number. How this is done in detail will be discussed further on.
+Quando o código fonte no branch ``develop`` atinge um ponto estável e está
+pronto para ser lançado, todas as alterações devem ser mescladas no
+branch ``master`` de alguma forma e em seguida etiquetadas com um número de
+versão. A forma como isso é feito será discutido mais à frente.
 
-Therefore, each time when changes are merged back into ``master``, this is a new production release by definition. We tend to be very strict at this, so that theoretically, we could use a Git hook script to automatically build and roll-out our software to our production servers everytime there was a commit on ``master``.
+Dessa forma, toda vez que as alterações são mescladas em ``master``, vira
+por definição uma nova versão de produção. Tendemos a ser bem
+rígidos com isso pois, teoricamente, poderíamos usar um hook script do Git
+para fazer o build automático e subir nosso software para os servidores de
+produção cada vez que for feito um commit no ``master``.
 
-##Supporting branches
+##Os branches auxiliares
 
-Next to the main branches ``master`` and ``develop``, our development model uses a variety of supporting branches to aid parallel development between team members, ease tracking of features, prepare for production releases and to assist in quickly fixing live production problems. Unlike the main branches, these branches always have a limited life time, since they will be removed eventually.
+Ao lado dos branches principais ``master`` e ``develop``, nosso modelo de
+desenvolvimento utiliza uma série de branches auxiliares para ajudar no
+desennvolvimento em paralelo entre os membros da equipe, facilitar o rastreamento
+das funcionalidades, preparar as versões de produção e para auxiliar no correção
+rápida de problemas diretamente no ambiente de produção. Diferentemente dos
+branches principais, esses branches sempre tem um tempo de vida limitado, uma
+vez que eles serão apagados em algum momento.
 
-The different types of branches we may use are:
+Os diferentes tipos de branches que podemos usar são:
 
 * Feature branches
 * Release branches
 * Hotfix branches
 
-Each of these branches have a specific purpose and are bound to strict rules as to which branches may be their originating branch and which branches must be their merge targets. We will walk through them in a minute.
+Cada um deles tem um objetivo específico e seguem regras estritas que diz
+coisas como de qual branch eles podem se originar e quais branches serão
+utilizados para fazer os merges. Vamos passar por eles em um minuto.
 
-By no means are these branches “special” from a technical perspective. The branch types are categorized by how we use them. They are of course plain old Git branches.
+Não tem nada "especial" nesses branches do ponto de vista técnico. O tipo do
+branch é classificado pelo modo que o utilizamos. Eles são os bons e velhos
+branches do Git.
 
 ###Feature branches
 
 ![fb][fb]
 
-May branch off from: ``develop``
-Must merge back into: ``develop``
-Branch naming convention: anything except ``master``, ``develop``, ``release-*``, or ``hotfix-*``
+* Originam de: ``develop``
+* Mesclam em: ``develop``
+* Convenção para nomes: qualquer um, exceto ``master``, ``develop``, ``release-*`` e ``hotfix-*``
 
-Feature branches (or sometimes called topic branches) are used to develop new features for the upcoming or a distant future release. When starting development of a feature, the target release in which this feature will be incorporated may well be unknown at that point. The essence of a feature branch is that it exists as long as the feature is in development, but will eventually be merged back into ``develop`` (to definitely add the new feature to the upcoming release) or discarded (in case of a disappointing experiment).
+Os feature branches (alguma vezes chamados de topic branches) são utilizados para desenvolver
+novas funcionalidades para o a próxima ou para uma versão futura. Quando se inicia o
+desenvolvimento de uma funcionalidade, a versão na qual essa funcionalidade será incorporada
+pode muito bem ser desconhecida nesse momento. A essência de um feature branch é que ele
+existe enquanto a funcionalidade está em desenvolvimento, mas irá em algum momento ser
+mesclado em ``develop`` (para adicionar a nova funcionalidade de forma definitiva na
+próxima versão) ou descartado (caso tenha sido uma experiência ruim).
 
-Feature branches typically exist in developer repos only, not in ``origin``.
+Os feature branches existem geralmente apenas nos repositórios dos desenvolvedores, não no
+``origin``.
 
-####Creating a feature branch
-When starting work on a new feature, branch off from the ``develop`` branch.
+####Criando um feature branch
+
+Quando começa o trabalho em uma nova funcionalidade, crie ramifique a partir do branch
+``develop``.
 
 	$ git checkout -b myfeature develop
 	Switched to a new branch "myfeature"
-####Incorporating a finished feature on develop
-Finished features may be merged into the ``develop`` branch definitely add them to the upcoming release:
+	
+####Incorporando uma funcionalidade finalizada em ``develop``
+
+As funcionalidades finalizadas podem ser mescladas no branch ``develop`` de forma definitiva
+para serem adicionadas na versão seguinte a ser lançada:
 
 	$ git checkout develop
 	Switched to branch 'develop'
@@ -89,24 +164,46 @@ Finished features may be merged into the ``develop`` branch definitely add them 
 	$ git branch -d myfeature
 	Deleted branch myfeature (was 05e9557).
 	$ git push origin develop
-The ``--no-ff`` flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward. This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. Compare:
 
+O parâmetro ``--no-ff`` faz com que o merge sempre crie um novo objeto de commit, mesmo se
+o merge pudesse ser feito do modo fast-forward. Isso evita que se perca informação de histórico
+da existência de um feature branch e agrupa todos os commits que adicionaram aquela
+funcionalidade. Compare:
+	
 ![merge-without-ff][merge-without-ff]
 
-In the latter case, it is impossible to see from the Git history which of the commit objects together have implemented a feature—you would have to manually read all the log messages. Reverting a whole feature (i.e. a group of commits), is a true headache in the latter situation, whereas it is easily done if the ``--no-ff`` flag was used.
+No segundo caso, é impossível de enxergar a partir do histórico do Git quais dos objetos
+de commit que juntos implementaram uma funcionalidade - você teria que ler manualmente
+cada uma das mensagens de log. Reverter uma funcionalidade inteira (i.e. um grupo de commits),
+é uma grande dor de cabeça na segunda situação, enquanto que o mesmo é facilmente feito quando se
+utiliza o parâmetro ``--no-ff``.
 
-Yes, it will create a few more (empty) commit objects, but the gain is much bigger that that cost.
+Ok, serão criados mais alguns objetos (vazios) de commit, mas o benefício é muito maior do que
+o custo.
 
-Unfortunately, I have not found a way to make ``--no-ff`` the default behaviour of ``git merge`` yet, but it really should be.
+Infelizmente, ainda não encontrei um jeito de fazer com que ``--no-ff`` seja o comportamento
+padrão do ``git merge``, pois ele realmente deveria ser assim.
+
 
 ###Release branches
-May branch off from: ``develop``
-Must merge back into: ``develop`` and ``master``
-Branch naming convention: ``release-*``
 
-Release branches support preparation of a new production release. They allow for last-minute dotting of i’s and crossing t’s. Furthermore, they allow for minor bug fixes and preparing meta-data for a release (version number, build dates, etc.). By doing all of this work on a release branch, the ``develop`` branch is cleared to receive features for the next big release.
+* Originam de: ``develop``
+* Mesclam em: ``develop`` e ``master``
+* Convenção para nomes: ``release-*``
 
-The key moment to branch off a new release branch from ``develop`` is when develop (almost) reflects the desired state of the new release. At least all features that are targeted for the release-to-be-built must be merged in to ``develop`` at this point in time. All features targeted at future releases may not—they must wait until after the release branch is branched off.
+Os release branches auxiliam na preparação de uma nova versão de produção. Eles permitem
+que se faça aquela última verificação do projeto. Além disso eles são usados para os minor
+bug fixes e preparação dos metadados de uma versão (número da versão, datas dos builds etc.).
+Fazendo tudo isso no release branch, o branch ``develop`` fica limpo para receber funcionalidades
+para o lançamento da próxima grande versão.
+
+O momento certo para criar um novo release branch a partir de ``develop`` é quando este está
+refletindo (quase) o estado desejado do lançamento da próxima versão. Pelos menos as
+funcionalidades planejadas para esse build precisam estar mescladas em ``develop`` nesse ponto.
+E as funcionalidades planejadas para as futuras versões não podem estar mescladas ainda - elas
+devem esperar até a criação do próximo release branch.
+
+É exatamente no início de um release branch que a versão a ser lançada
 
 It is exactly at the start of a release branch that the upcoming release gets assigned a version number—not any earlier. Up until that moment, the ``develop`` branch reflected changes for the “next release”, but it is unclear whether that “next release” will eventually become 0.3 or 1.0, until the release branch is started. That decision is made on the start of the release branch and is carried out by the project’s rules on version number bumping.
 

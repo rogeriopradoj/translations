@@ -203,12 +203,18 @@ funcionalidades planejadas para esse build precisam estar mescladas em ``develop
 E as funcionalidades planejadas para as futuras versões não podem estar mescladas ainda - elas
 devem esperar até a criação do próximo release branch.
 
-É exatamente no início de um release branch que a versão a ser lançada
+É exatamente no início de um release branch que a versão a ser lançada recebe um número de versão - e
+não em nenhuma lugar anterior. Até esse momento, o branch ``develop`` continha as alterações para a
+"próxima versão", mas não estava certo ainda se essa "próxima versão" se tornaria a 0.3 ou a 1.0, até
+que o release branch foi iniciado. Essa decisão é tomada no início do release branch e é feita seguindo
+as regras de número de versão desse projeto.
 
-It is exactly at the start of a release branch that the upcoming release gets assigned a version number—not any earlier. Up until that moment, the ``develop`` branch reflected changes for the “next release”, but it is unclear whether that “next release” will eventually become 0.3 or 1.0, until the release branch is started. That decision is made on the start of the release branch and is carried out by the project’s rules on version number bumping.
+####Criando um release branch
 
-####Creating a release branch
-Release branches are created from the ``develop`` branch. For example, say version 1.1.5 is the current production release and we have a big release coming up. The state of ``develop`` is ready for the “next release” and we have decided that this will become version 1.2 (rather than 1.1.6 or 2.0). So we branch off and give the release branch a name reflecting the new version number:
+Os release branches são criados a partir do branch ``develop``. Por exemplo, digamos que a versão 1.1.5
+seja a versão atual em produção e que tenhamos uma grande versão para sair. O estado de ``develop`` está
+pronto para o "next release" e decidimos que ela se tornará a versão 1.2 (e não 1.1.6 nem 2.0). Assim
+criamos um branch a partir de lá e damos um nome para ele que reflita o novo número da versão.
 
 	$ git checkout -b release-1.2 develop
 	Switched to a new branch "release-1.2"
@@ -217,14 +223,27 @@ Release branches are created from the ``develop`` branch. For example, say versi
 	$ git commit -a -m "Bumped version number to 1.2"
 	[release-1.2 74d9424] Bumped version number to 1.2
 	1 files changed, 1 insertions(+), 1 deletions(-)
-After creating a new branch and switching to it, we bump the version number. Here, ``bump-version.sh`` is a fictional shell script that changes some files in the working copy to reflect the new version. (This can of course be a manual change—the point being that some files change.) Then, the bumped version number is committed.
 
-This new branch may exist there for a while, until the release may be rolled out definitely. During that time, bug fixes may be applied in this branch (rather than on the ``develop`` branch). Adding large new features here is strictly prohibited. They must be merged into ``develop``, and therefore, wait for the next big release.
+Depois de criar um novo branch e fazer o switch nele, nós aumentamos o número da versão nos nossos arquivos.
+No nosso caso, ``bump-version.sh`` é um shell script fictício que altera alguns arquivos na nossa cópia local
+para refletir a nova versão. (É claro que isso pode ser feito manualmente). Assim, o número da versão
+incrementada é comitada.
 
-####Finishing a release branch
-When the state of the release branch is ready to become a real release, some actions need to be carried out. First, the release branch is merged into ``master`` (since every commit on ``master`` is a new release by definition, remember). Next, that commit on ``master`` must be tagged for easy future reference to this historical version. Finally, the changes made on the release branch need to be merged back into ``develop``, so that future releases also contain these bug fixes.
+Esse novo branch pode existir apenas por pouco tempo, até que a versão seja disponibilizada de forma
+definitiva. Durante esse período, os bug fixes pode ser aplicados nesse branch (em vez de serem feitos
+no ``develop`` branch). Fazer grandes adições de novas funcionalidades aqui é estritamente proibido.
+Elas devem ser mescladas em ``develop`` e assim aguardar até a próxima grande versão.
 
-The first two steps in Git:
+####Finalizando um release branch
+
+Quando o estado do release branch está pronto para se tornar uma versão de verdade, algumas ações são
+necessárias para o seu lançamento. Primeiro, o release branch é mesclado em ``master`` (uma vez que
+todo commit no ``master`` é uma nova versão por definição, lembrou?). Em seguida, o commit em ``master``
+precisam receber uma tag para serem facilmente referenciados como uma versão histórica. Finalmente,
+as mudanças feitas no release branch precisam ser mesclados de volta em ``develop``, assim as versões
+futuras também conterão os bug fixes.
+
+Os dois primeiros passos no Git:
 
 	$ git checkout master
 	Switched to branch 'master'
@@ -232,36 +251,54 @@ The first two steps in Git:
 	Merge made by recursive.
 	(Summary of changes)
 	$ git tag -a 1.2
-The release is now done, and tagged for future reference.
-Edit: You might as well want to use the ``-s`` or ``-u`` <key> flags to sign your tag cryptographically.
 
-To keep the changes made in the release branch, we need to merge those back into ``develop``, though. In Git:
+A versão agora está pronta, e etiquetada para referência futura.
+
+Edição: Você talvez também queira usar os parâmetros ``-s`` or ``-u`` <key> para assinar as tags
+com criptografia.
+
+Para manter as alterações efetuadas no release branch, precisamos mesclá-las de volta em ``develop``.
+No Git:
 
 	$ git checkout develop
 	Switched to branch 'develop'
 	$ git merge --no-ff release-1.2
 	Merge made by recursive.
 	(Summary of changes)
-This step may well lead to a merge conflict (probably even, since we have changed the version number). If so, fix it and commit.
 
-Now we are really done and the release branch may be removed, since we don’t need it anymore:
+Esse passo pode muito bem levar a um conflito de mesclagem (isso é bem provável, uma vez que alteramos
+o número da versão em alguns arquivos). Se isso acontecer, conserte os conflitos e então faça o commit
+novamente.
+
+Agora sim estamos com tudo finalizado e o release branch pode ser removido, pois não iremos mais
+precisar dele:
 
 	$ git branch -d release-1.2
 	Deleted branch release-1.2 (was ff452fe).
+
 ###Hotfix branches
 
 ![hotfix-branches1][hotfix-branches1]
 
-May branch off from: ``master``
-Must merge back into: ``develop`` and ``master``
-Branch naming convention: ``hotfix-*``
+* Originam de: ``master``
+* Mesclam em: ``develop`` e ``master``
+* Convenção para nomes: ``hotfix-*``
 
-Hotfix branches are very much like release branches in that they are also meant to prepare for a new production release, albeit unplanned. They arise from the necessity to act immediately upon an undesired state of a live production version. When a critical bug in a production version must be resolved immediately, a hotfix branch may be branched off from the corresponding tag on the master branch that marks the production version.
+Os hotfixes branches se parecem muito com os release branches pois eles também tem a função de fazer a
+preparação para uma nova versão de produção, embora não planejadas. Eles surgem da necessidade de agir
+imediatamente em cima de uma versão que está rodando em produção. Quando um bug crítico em uma versão
+de produção precisa ser resolvida imediatamente, um hotfix branch pode ser criado a partir da tag
+correspondente do master branch que aponta a versão em produção.
 
-The essence is that work of team members (on the ``develop`` branch) can continue, while another person is preparing a quick production fix.
+A essência é que o trabalho dos membros da equipe (no branch ``develop``) possa continuar, enquanto
+outra pessoa está preparando uma solução rápida para a produção.
 
-####Creating the hotfix branch
-Hotfix branches are created from the ``master`` branch. For example, say version 1.2 is the current production release running live and causing troubles due to a severe bug. But changes on ``develop`` are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
+####Criando o hotfix branch
+
+Os hotfixes branches são criados a partir do branch ``master``. Por exemplo, digamos que a versão 1.2 seja a
+versão atual que está rodando em produção e que esteja causando problemas devido a algum bug grave. Mas as
+alterações em ``develop`` ainda são instáveis. Podemos assim criar um hotfix branch e começar a solucionar
+o problema:
 
 	$ git checkout -b hotfix-1.2.1 master
 	Switched to a new branch "hotfix-1.2.1"
@@ -270,18 +307,22 @@ Hotfix branches are created from the ``master`` branch. For example, say version
 	$ git commit -a -m "Bumped version number to 1.2.1"
 	[hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1
 	1 files changed, 1 insertions(+), 1 deletions(-)
-Don’t forget to bump the version number after branching off!
 
-Then, fix the bug and commit the fix in one or more separate commits.
+Não se esqueça de incrementar o número da versão depois de criar o branch!
+
+Depois disso, conserte o bug e faça o commit da solução em um ou mais commits separados.
 
 	$ git commit -m "Fixed severe production problem"
 	[hotfix-1.2.1 abbe5d6] Fixed severe production problem
 	5 files changed, 32 insertions(+), 17 deletions(-)
-Finishing a hotfix branch
 
-When finished, the bugfix needs to be merged back into ``master``, but also needs to be merged back into ``develop``, in order to safeguard that the bugfix is included in the next release as well. This is completely similar to how release branches are finished.
+####Finalizando um hotfix branch
 
-First, update ``master`` and tag the release.
+Quando finalizada, a solução precisa ser mesclada de volta no ``master``, mas também precisa ser
+mesclada em ``develop``, para que se garanta que a solução também será incluida na próxima versão.
+Isso é bem semelhante a forma como os release branches são finalizado.
+
+Primeiro, atualize o ``master`` e etiquete a versão.
 
 	$ git checkout master
 	Switched to branch 'master'
@@ -289,35 +330,47 @@ First, update ``master`` and tag the release.
 	Merge made by recursive.
 	(Summary of changes)
 	$ git tag -a 1.2.1
-Edit: You might as well want to use the ``-s`` or ``-u`` <key> flags to sign your tag cryptographically.
 
-Next, include the bugfix in ``develop``, too:
+Edição: Você talvez também queira utilizar os parâmetros ``-s`` or ``-u`` <key> para assinar sua tag
+criptograficamente.
+
+Em seguida, inclua o bugfix também em ``develop``:
 
 	$ git checkout develop
 	Switched to branch 'develop'
 	$ git merge --no-ff hotfix-1.2.1
 	Merge made by recursive.
 	(Summary of changes)
-The one exception to the rule here is that, when a release branch currently exists, the hotfix changes need to be merged into that release branch, instead of ``develop``. Back-merging the bugfix into the release branch will eventually result in the bugfix being merged into ``develop`` too, when the release branch is finished. (If work in ``develop`` immediately requires this bugfix and cannot wait for the release branch to be finished, you may safely merge the bugfix into ``develop`` now already as well.)
+    
+A única exceção à regra aqui é que quando um release branch ainda existe, as alterações do hotfix
+precisam ser mescladas nesse release branch em de mesclar em ``develop``. Essa mesclagem do bugfix
+no release branch fará que no fim esse acerto seja colocado também em ``develop``, quando o release
+branch for finalizado. (Se o trabalho em ``develop`` precisar imediatamente do bugfix e não puder
+esperar que o release branch finalize, você pode seguramente também mesclar o bugfix em ``develop``
+agora).
 
-Finally, remove the temporary branch:
+Finalmente, remova o branch temporário:
 
 	$ git branch -d hotfix-1.2.1
 	Deleted branch hotfix-1.2.1 (was abbe5d6).
-##Summary
 
-While there is nothing really shocking new to this branching model, the “big picture” figure that this post began with has turned out to be tremendously useful in our projects. It forms an elegant mental model that is easy to comprehend and allows team members to develop a shared understanding of the branching and releasing processes.
+##Sumário
 
-A high-quality PDF version of the figure is provided here. Go ahead and hang it on the wall for quick reference at any time.
+Mesmo que não tenha nada de extremamente novo nesse modelo de branching, a visão completa que esse
+artigo trouxe se mostrou tremendamente útil em nossos projetos. Ele forma um modelo mental elegante
+que é fácil de compreender e permite que os membros da equipe desenvolvam um entendimento compartilhado
+dos processos de branching e lançamento de versões.
 
-Update: And for anyone who requested it: here’s the [gitflow-model.src.key][gitflow-model.src.key] of the main diagram image (Apple Keynote).
+Uma versão PDF de alta qualidade da imagem é fornecida aqui. Vá em frente e pendure-a na parede
+para uma referência rápida em qualquer tempo.
+
+Atualização: E para todos aqueles que pediram: aqui está o [gitflow-model.src.key][gitflow-model.src.key]
+da imagem principal do diagrama (Apple Keynote).
 
 ![pdf][pdf]
 [Git-branching-model.pdf][Git-branching-model.pdf]
 
-Feel free to add your comments!
-
-
+Fique a vontade para adicionar comentários!
 
 
 

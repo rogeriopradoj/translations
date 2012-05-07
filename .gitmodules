@@ -1,0 +1,3 @@
+[submodule "original/semantic-versioning"]
+	path = original/semantic-versioning
+	url = https://github.com/mojombo/semver.git

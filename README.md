@@ -15,6 +15,7 @@ Designed to keep the translations I do of some interesting articles I find in we
 
 * [1___] **A successful Git branching model** - http://nvie.com/posts/a-successful-git-branching-model/
 * [2___] **Semantic Versioning 2.0.0-rc.1** - http://semver.org/
+* [3___] **Code Conventions for the JavaScript Programming Language** - http://javascript.crockford.com/code.html
 
 ##pt_BR
 Criado para manter as traduções que faço de artigos interessantes da web.
@@ -25,9 +26,11 @@ Criado para manter as traduções que faço de artigos interessantes da web.
 ###Feitos
 * [1___] **Um modelo bem sucedido para branch no Git**
 * [2___] **Versionamento Semântico 2.0.0-rc.1**
+* [3___] **Convenções de Código para a Linguagem de Programação JavaScript**
 
 [1___]: https://github.com/rogeriopradoj/translations/blob/master/translated/a-successful-git-branching-model/pt_BR.md
 [2___]: https://github.com/rogeriopradoj/translations/blob/master/translated/semantic-versioning/pt_BR.md
+[3___]: https://github.com/rogeriopradoj/translations/blob/master/translated/javascript-coding-standards/pt_BR.md
 
 [blog]: http://rogeriopradoj.com
 [github]: http://github.com/rogeriopradoj

@@ -1,120 +1,130 @@
-Code Conventions for the JavaScript Programming Language
-========================================================
+Convenções de Código para a Linguagem de Programação JavaScript
+===============================================================
 
-This is a set of coding conventions and rules for use in JavaScript
-programming. It is inspired by the [Sun](http://www.sun.com/) document
-[Code Conventions for the Java Programming
-Language](http://java.sun.com/docs/codeconv/). It is heavily modified of
-course because [JavaScript is not
-Java](http://javascript.crockford.com/javascript.html).
+>Tradução livre do artigo "Code Conventions for the JavaScript Programming
+>Language", disponível no site http://javascript.crockford.com/code.html.
 
-The long-term value of software to an organization is in direct
-proportion to the quality of the codebase. Over its lifetime, a program
-will be handled by many pairs of hands and eyes. If a program is able to
-clearly communicate its structure and characteristics, it is less likely
-that it will break when modified in the never-too-distant future.
+Esse é um conjunto de convenções e regras de código para usar na
+programação com JavaScript. Ele foi inspirado no documento [Code Conventions
+for the Java Programming Language](http://java.sun.com/docs/codeconv/) da
+[Sun](http://www.sun.com/). É claro que ele foi modificado profundamente
+porque
+[o JavaScript não é o Java](http://javascript.crockford.com/javascript.html).
 
-Code conventions can help in reducing the brittleness of programs.
+O valor de um software para uma organização é diretamente
+proporcional a qualidade da sua base de código. Durante seu tempo de vida,
+um programa será mexido por muitos pares de mãos e de olhos. Se um programa
+for capaz de comunicar claramente sua estrutura e suas características,
+será menos provável que ele quebre quando for modificado num futuro
+nunca-muito-distante.
 
-All of our JavaScript code is sent directly to the public. It should
-always be of publication quality.
+Convenções de código podem ajudar a reduzir a fragilidade dos programas.
 
-Neatness counts.
+Todo seu código JavaScript é enviado diretamente ao público. Esse código
+deveria ter sempre uma qualidade de publicação.
 
-JavaScript Files
-----------------
+Isso faz diferença.
 
-JavaScript programs should be stored in and delivered as `.js` files.
+Arquivos JavaScript
+-------------------
 
-JavaScript code should not be embedded in HTML files unless the code is
-specific to a single session. Code in HTML adds significantly to
-pageweight with no opportunity for mitigation by caching and
-compression.
+Arquivos JavaScript devem ser armazenados e disponibilizados como arquivos
+`.js`.
 
-`<script src=`filename`.js>` tags should be placed as late in the body
-as possible. This reduces the effects of delays imposed by script
-loading on other page components. There is no need to use the `language`
-or `type` attributes. It is the server, not the script tag, that
-determines the MIME type.
+O código JavaScript não deve ser embutido em arquivos HTML a menos que o
+código seja específico de uma sessão única. Código dentro do HTML aumenta
+significativamente o tamanho da página e impede que se faça otimização
+por meio de cache ou compressão.
 
-Indentation
------------
+As tags `<script src=`filename`.js>` devem ser colocadas no corpo do documento
+o mais tarde possível. Isso diminui os efeitos do atraso no carregamento dos outros
+componentes da página devido ao carregamento do script.
+Não há necessidade de usar os atributos `language` ou `type`. É o servidor,
+e não a tag script, que determina o tipo MIME.
 
-The unit of indentation is four spaces. Use of tabs should be avoided
-because (as of this writing in the 21st Century) there still is not a
-standard for the placement of tabstops. The use of spaces can produce a
-larger filesize, but the size is not significant over local networks,
-and the difference is eliminated by
+
+Recuo
+-----
+
+O tamanho do recuo é quatro espaços. O uso de tabulação deve ser evitado
+porque (isto foi escrito no século XXI) ainda não existe um padrão para o
+posicionamento das paradas de tabulação. O uso de espaços pode gerar um
+arquivo maior, mas o tamanho não é significativo em redes locais, e a
+diferença é eliminada por meio de
 [minification](http://yuiblog.com/blog/2006/03/06/minification-v-obfuscation/).
 
-Line Length
+
+Tamanho da Linha
+----------------
+
+Evite linhas maiores que 80 caracteres. Quando uma declaração não couber em
+uma única linha, é necessário que ela seja quebrada. Coloque a quebra depois
+de um operador, idealmente depois de uma vírgula. Uma quebra depois de um
+operador diminui a probabilidade de que um erro de "copia-e-cola" seja
+mascarado pela inserção de um ponto e vírgula. A linha seguinte deve ser
+identada com 8 espaços.
+
+Comentários
 -----------
 
-Avoid lines longer than 80 characters. When a statement will not fit on
-a single line, it may be necessary to break it. Place the break after an
-operator, ideally after a comma. A break after an operator decreases the
-likelihood that a copy-paste error will be masked by semicolon
-insertion. The next line should be indented 8 spaces.
+Seja generoso com os comentários. Eles são úteis para passar informações
+que serão lidas daqui um tempo por pessoas (possivelmente você mesmo) que
+terão que entender o que você fez. Os comentários devem ser bem escritos
+e claros, da mesma forma que o código que eles estão anotando. Eventuais
+pitadas de humor podem ser bem-vindas. Frustações e ressentimentos não.
 
-Comments
---------
+É importante que os comentários sejam mantidos atualizados. Comentários
+incorretos podem deixar ainda mais difícil a leitura e o entendimento dos
+programas.
 
-Be generous with comments. It is useful to leave information that will
-be read at a later time by people (possibly yourself) who will need to
-understand what you have done. The comments should be well-written and
-clear, just like the code they are annotating. An occasional nugget of
-humor might be appreciated. Frustrations and resentments will not.
+Deixe comentários que façam sentido. Se foque no que não for visível de forma
+imediata. Não gaste o tempo do leitor com coisas desse tipo
 
-It is important that comments be kept up-to-date. Erroneous comments can
-make programs even harder to read and understand.
+        i = 0; // Define i como zero.
 
-Make comments meaningful. Focus on what is not immediately visible.
-Don't waste the reader's time with stuff like
+Em geral use comentários de linha. Guarde os comentários de bloco para
+documentação formal e outros.
 
-        i = 0; // Set i to zero.
+Declaração de Variáveis
+-----------------------
 
-Generally use line comments. Save block comments for formal
-documentation and for commenting out.
+Todas as variáveis devem ser declaradas antes de serem utilizadas. O
+Javascript não obriga você a fazer isso, mas dessa forma o programa fica
+mais fácil de ler e facilita a detecção de variáveis não declaradas
+que podem se tornar
+[globais](http://yuiblog.com/blog/2006/06/01/global-domination/)
+implícitas. Variáveis globais implícitas nunca devem ser usadas.
 
-Variable Declarations
----------------------
+As declarações `var` devem ser as primeiras a aparecer no corpo de uma
+função.
 
-All variables should be declared before used. JavaScript does not
-require this, but doing so makes the program easier to read and makes it
-easier to detect undeclared variables that may become implied
-[globals](http://yuiblog.com/blog/2006/06/01/global-domination/).
-Implied global variables should never be used.
+É preferível que cada variável receba sua própria linha e comentário. Elas
+devem ser listadas em ordem alfabética.
 
-The `var` statements should be the first statements in the function
-body.
+        var currentEntry; // entrada atualmente selecionada da tabela
+        var level;        // nível do recuo
+        var size;         // tamanho da tabela
 
-It is preferred that each variable be given its own line and comment.
-They should be listed in alphabetical order.
+O JavaScript não possui escopo de bloco, assim definir variáveis dentro
+de blocos pode confundir programadores que tem experiência com outras
+linguagens da família C. Define todas as variáveis no topo da função.
 
-        var currentEntry; // currently selected table entry
-        var level;        // indentation level
-        var size;         // size of table
+A utilização de variáveis globais deve ser minimizado. Varíaveis globais
+implícitas nunca devem ser utilizadas.
 
-JavaScript does not have block scope, so defining variables in blocks
-can confuse programmers who are experienced with other C family
-languages. Define all variables at the top of the function.
+Declarações de Funções
+----------------------
 
-Use of global variables should be minimized. Implied global variables
-should never be used.
+Todas as funções devem ser declaradas antes de serem utilizadas.
+Funções internas devem ser precedidas da declaração `var`. Isso ajuda
+a deixar claro que as variáveis estão incluídas nesse escopo.
 
-Function Declarations
----------------------
-
-All functions should be declared before they are used. Inner functions
-should follow the `var` statement. This helps make it clear what
-variables are included in its scope.
-
-There should be no space between the name of a function and the `(`
-(left parenthesis) of its parameter list. There should be one space
-between the `)` (right parenthesis) and the `{` (left curly brace) that
-begins the statement body. The body itself is indented four spaces. The
-`}` (right curly brace) is aligned with the line containing the
-beginning of the declaration of the function.
+Não deve ter nenhum espaço entre o nome da função e o `(`
+(parêntese da esquerda) da sua lista de parâmetros. Deve ter um espaço
+entre o `)` (parêntese da direita) e a `{` (chave da esquerda) que
+inicia o corpo da declaração. O próprio corpo deve ser recuado com
+quatro espaços. A `}` (chave da direita) é alinhado com a linha que contém
+o início da declaração da função.
 
         function outer(c, d) {
             var e = c * d;
@@ -126,20 +136,20 @@ beginning of the declaration of the function.
             return inner(0, 1);
         }
 
-This convention works well with JavaScript because in JavaScript,
-functions and object literals can be placed anywhere that an expression
-is allowed. It provides the best readability with inline functions and
-complex structures.
+Essa convenção funciona bem com o JavaScript porque nele as funções e objetos
+literais podem ser colocados em qualquer lugar onde uma expressão seja
+permitida. Isso proporciona melhor legibilidade em funções embutidas
+e em estruturas complexas. 
 
         function getElementsByClassName(className) {
             var results = [];
             walkTheDOM(document.body, function (node) {
-                var a;                  // array of class names
-                var c = node.className; // the node's classname
-                var i;                  // loop counter
+                var a;                  // array dos nomes das classes
+                var c = node.className; // o nome da classe nó
+                var i;                  // contador do loop
 
-    // If the node has a class name, then split it into a list of simple names.
-    // If any of them match the requested name, then append the node to the set of results.
+    // Se o nó tiver um nome de classe, divida-o numa lista de nomes simplificados.
+    // Se algum deles corresponder com o nome requisitado, então acrescente o nó ao conjunto de resultados.
 
                 if (c) {
                     a = c.split(' ');
@@ -154,10 +164,9 @@ complex structures.
             return results;
         }
 
-If a function literal is anonymous, there should be one space between
-the word `function` and the `(` (left parenthesis). If the space is
-omited, then it can appear that the function's name is `function`, which
-is an incorrect reading.
+Se uma função literal for anônima, deve ter um espaço entre a palavra
+`function` e o `(` (parêntese da esquerda). Se o espaço for omitido, pode
+parecer que o nome da função é `function`, que é uma leitura errada.
 
         div.onclick = function (e) {
             return false;
@@ -170,12 +179,11 @@ is an incorrect reading.
             datum: 0
         };
 
-Use of global functions should be minimized.
+A utilização de funções globais deve ser minimizado.
 
-When a function is to be invoked immediately, the entire invocation
-expression should be wrapped in parens so that it is clear that the
-value being produced is the result of the function and not the function
-itself.
+Quando uma função é invocada imediatamente, a expressão de invocação deve
+ser completamente envolvida por parênteses para que seja claro que o valor
+a ser produzido é resultado da função e não a própria função.
 
     var collection = (function () {
         var keys = [], values = [];
@@ -205,239 +213,277 @@ itself.
         };
     }());
 
-Names
+Nomes
 -----
 
-Names should be formed from the 26 upper and lower case letters (`A` ..
-`Z`, `a` .. `z`), the 10 digits (`0` .. `9`), and `_` (underbar). Avoid
-use of international characters because they may not read well or be
-understood everywhere. Do not use `$` (dollar sign) or `\` (backslash)
-in names.
+Os nomes devem ser formados pelas 26 letras maísculas ou mínusculas
+(`A` .. `Z`, `a` .. `z`), os 10 dígitos (`0` .. `9`) e `_` (sublinhado).
+Evite usar caracteres internacionais porque eles podem não ser bem lidos
+ou entendidos em todos os lugares. Não use o `$` (cifrão) nem a `\`
+(contrabarra) nos nomes.
 
-Do not use `_` (underbar) as the first character of a name. It is
-sometimes used to indicate privacy, but it does not actually provide
-privacy. If privacy is important, use the forms that provide [private
-members](http://javascript.crockford.com/private.html). Avoid
-conventions that demonstrate a lack of competence.
+Não use `_` (sublinhado) como o primeiro caractere de um nome. Algumas vezes
+isso é usado para indicar privacidade, mas não fornece isso de verdade.
+Se a privacidade for importante, utilize mecanismos para implementar
+[membros privados](http://javascript.crockford.com/private.html). Evite
+convenções que indiquem incompetência.
 
-Most variables and functions should start with a lower case letter.
+A maior parte das variáveis e funções deve começar com letra minúscula.
 
-Constructor functions which must be used with the
-`new`[prefix](http://yuiblog.com/blog/2006/11/13/javascript-we-hardly-new-ya/)
-should start with a capital letter. JavaScript issues neither a
-compile-time warning nor a run-time warning if a required `new` is
-omitted. Bad things can happen if `new` is not used, so the
-capitalization convention is the only defense we have.
+Funções construtoras que precisam ser utilizadas com o
+[prefixo](http://yuiblog.com/blog/2006/11/13/javascript-we-hardly-new-ya/)
+`new` devem começar com uma letra maíscula. O Javascript mostra erros
+de tempo de compilação ou de tempo de execução se um `new` obrigatório for
+omitido. Coisas ruins pode acontecer se `new`  não for utilizado, então
+a convenção das maiúsculas é a única defesa que nós temos.
 
-Global variables should be in all caps. (JavaScript does not have macros
-or constants, so there isn't much point in using all caps to signify
-features that JavaScript doesn't have.)
+As variáveis globais devem ser com todas as letras maiúsculas.
+(O JavaScript não tem macros nem constantes, por isso não faz muito sentido
+utilizar todas as letras maiúsculas para indicar funcionalidades que o
+JavaScript não tem).
 
-Statements
-----------
+Declarações
+-----------
 
-### Simple Statements
+### Declarações Simples
 
-Each line should contain at most one statement. Put a `;` (semicolon) at
-the end of every simple statement. Note that an assignment statement
-which is assigning a function literal or object literal is still an
-assignment statement and must end with a semicolon.
+Cada linha deve conter no máximo uma declaração. Coloque um `;` (ponto
+e vírgula) no fim de cada declaração simples. Perceba que uma declaração
+de atribuição que está atribuindo uma função literal ou um objeto literal
+continua sendo uma declaração de atribuição e precisa terminar com um
+ponto e vírgula.
 
-JavaScript allows any expression to be used as a statement. This can
-mask some errors, particularly in the presence of semicolon insertion.
-The only expressions that should be used as statements are assignments
-and invocations.
+O JavaScript permite que uma expressão seja usada como uma declaração.
+Isso pode mascarar alguns erros, particularmente quando for inserido
+um ponto e vírgula. As únicas expressões que devem ser utilizadas como
+declarações são as atribuições e as invocações.
 
-### Compound Statements
+### Declarações Compostas
 
-Compound statements are statements that contain lists of statements
-enclosed in `{ }` (curly braces).
+As declarações compostas são declarações que contém listas de declarações
+colocadas entre `{ }` (chaves).
 
--   The enclosed statements should be indented four more spaces.
--   The `{` (left curly brace) should be at the end of the line that
-    begins the compound statement.
--   The `}` (right curly brace) should begin a line and be indented to
-    align with the beginning of the line containing the matching `{`
-    (left curly brace).
--   Braces should be used around all statements, even single statements,
-    when they are part of a control structure, such as an `if` or `for`
-    statement. This makes it easier to add statements without
-    accidentally introducing bugs.
+-   As declarações embutidas devem ser recuadas com mais 4 espaços.
+-   A `{` (chave da esquerda) deve ficar no fim da linha que inicia
+    a declaração composta.
+-   A `}` (chave da direita) deve começar uma linha e ser recuada
+    para se alinhar com o início da linha que contém a `{` (chave da esquerda)
+    correspondente.
+-   As chaves devem ser utilizadas em volta de todas as declarações, mesmo nas
+    declarações simples, quando elas forem parte de uma estrutura de controle,
+    como um declaração `if` ou `for`. Isso facilita a adição de declarações
+    sem acidentalmente colocar novos bugs.
 
-### Labels
+### Rótulos
 
-Statement labels are optional. Only these statements should be labeled:
-`while`, `do`, `for`, `switch`.
+Os rótulos nas declarações são opcionais. Apenas essas declarações devem
+ser rotuladas: `while`, `do`, `for`, `switch`.
 
-### `return` Statement
+### Declaração `return`
 
-A `return` statement with a value should not use `( )` (parentheses)
-around the value. The return value expression must start on the same
-line as the `return` keyword in order to avoid semicolon insertion.
+Uma declaração `return` com um valor não deve usar `( )` (parênteses)
+em volta do valor. A expressão que retorna o valor precisa iniciar
+na mesma linha que a palavra-chave `return` para que se evite uma
+inserção de ponto e vírgula.
 
-### `if` Statement
+### Declaração `if`
 
-The `if` class of statements should have the following form:
+A classe de declarações `if` deve ter o seguinte formato:
 
-`    if (`condition`)    {           `statements`       }              if (`condition`) {           `statements`       } else {           `statements`       }              if (`condition`) {           `statements`       } else if (`condition`)    {           `statements`       } else {           `statements`       }`
+    if (`condition`) {
+        `statements`
+    }
 
-### `for` Statement
+    if (`condition`) {
+        `statements`
+    } else {
+        `statements`
+    }
 
-A `for` class of statements should have the following form:
+    if (`condition`) {
+        `statements`
+    } else if (`condition`) {
+        `statements`
+    } else {
+        `statements`
+    }
 
-`    for (`initialization`;    `condition`; `update`) {           `statements`       }          for (`variable` in `object`)    {           if (`filter`) {               `statements`           }         }`
+### Declaração `for`
 
-The first form should be used with arrays and with loops of a
-predeterminable number of iterations.
+A classe de declarações `for` deve ter o seguinte formato:
 
-The second form should be used with objects. Be aware that members that
-are added to the prototype of the object ` `will be included in the
-enumeration. It is wise to program defensively by using the
-`hasOwnProperty` method to distinguish the true members of the object:
+    for (`initialization`; `condition`; `update`) {
+        `statements`
+    }
 
-`    for (`variable`    in `object`) {           if ``(`object`.hasOwnProperty(`variable`))``    {               `statements`           }        }`
+    for (`variable` in `object`) {
+        if (`filter`) {
+            `statements`
+        }
+    }
 
-### `while` Statement
+O primeiro formato deve ser usado com arrays e loops com um número
+predeterminado de repetições.
 
-A `while` statement should have the following form:
+O segundo formato deve ser utilizado com objetos. Esteja ciente que membros
+que forem adicionados ao protótipo do objeto serão incluídos na enumeração.
+É aconselhável programar defensivamente usando o método `hasOwnProperty`
+para distinguir os membros reais do objeto:
 
-`    while (`condition`)    {           `statements`       }`
+    for (`variable` in `object`) {
+        if (`object`.hasOwnProperty(`variable`)) {
+            `statements`
+        }
+    }
 
-### `do` Statement
+### Declaração `while`
 
-A `do` statement should have the following form:
+Uma declaração `while` deve ter o seguinte formato:
 
-`    do {           `statements`       } while (`condition`);`
+    while (`condition`) {
+        `statements`
+    }
 
-Unlike the other compound statements, the `do` statement always ends
-with a `;` (semicolon).
+### Declaração `do`
 
-### `switch` Statement
+Uma declaração `do` deve ter o seguinte formato:
 
-A `switch` statement should have the following form:
+    do {
+        `statements`
+    } while (`condition`);
 
-`    switch (`expression`) {       case `expression`:           `statements`       default:           `statements`       }`
+Ao contrário das outras declarações compostas, a declaração `do` sempre
+termina com um `;` (ponto e vírgula).
 
-Each `case` is aligned with the `switch`. This avoids over-indentation.
+### Declaração `switch`
 
-Each group of statements (except the `default`) should end with `break`,
-`return`, or `throw`. Do not fall through.
+Uma declaração `switch` deve ter o seguinte formato:
 
-### `try` Statement
+    switch (`expression`) {
+    case `expression`:
+        `statements`
+    default:
+        `statements`
+    }
 
-The `try` class of statements should have the following form:
+Todo `case` é alinhado com o `switch`. Isso evita excesso de recuo.
 
-    `try {`\
-         statements\
-     `} catch (`variable`) {`\
-         statements\
-     }\
- \
-     `try {`\
-         statements\
-     `} catch (`variable`) {`\
-         statements\
-   ` } finally {`\
-         statements\
-     `}`
+Todo grupo de declarações (exceto a `default`) deve terminar com `break`,
+`return` ou `throw`. Não faça ele passar por vários blocos.
 
-### `continue` Statement
+### Declaração `try`
 
-Avoid use of the `continue` statement. It tends to obscure the control
-flow of the function.
+A classe de declarações `try` deve ter o seguinte formato:
 
-### `with` Statement
+    try {
+        `statements`
+    } catch (`variable`) {
+        `statements`
+    }
 
-The `with` statement [should not be
-used](http://yuiblog.com/blog/2006/04/11/with-statement-considered-harmful/).
+    try {
+        `statements`
+    } catch (`variable`) {
+        `statements`
+    } finally {
+        `statements`
+    }
 
-Whitespace
-----------
+### Declaração `continue`
 
-Blank lines improve readability by setting off sections of code that are
-logically related.
+Evite o uso da declaração `continue`. Ela tende a obscurecer o fluxo de
+controle da função.
 
-Blank spaces should be used in the following circumstances:
+### Declaração `with`
 
--   A keyword followed by `(` (left parenthesis) should be separated by
-    a space.
+A declaração `with` [não deve ser
+usada](http://yuiblog.com/blog/2006/04/11/with-statement-considered-harmful/).
 
-<!-- -->
+Espaço em branco
+----------------
+
+Linhas em branco aumentam a legibilidade separando seções de código que
+são relacionadas logicamente.
+
+Espaços em branco devem ser utilizados nas seguintes circunstâncias:
+
+-   Uma palavra-chave seguida de `(` (parêntese da esquerda) devem ser
+    separados por um espaço.
 
             while (true) {
 
--   A blank space should not be used between a function value and its
-    `(` (left parenthesis). This helps to distinguish between keywords
-    and function invocations.
--   All binary operators except `.` (period) and `(` (left parenthesis)
-    and `[` (left bracket) should be separated from their operands by a
-    space.
--   No space should separate a unary operator and its operand except
-    when the operator is a word such as `typeof`.
--   Each ; (semicolon) in the control part of a `for` statement should
-    be followed with a space.
--   Whitespace should follow every , (comma).
+-   Um espaço em branco não deve ser usado entre um valor de função e seu
+    `(` (parêntese da esquerda). Isso ajuda na distinção entre palavras-chave
+    e invocações de função.
+-   Todos os operadores binários exceto `.` (ponto), `(` (parêntese da esquerda)
+    e `[` (colchete da esquerda) devem ser separados de seus operandos por um
+    espaço.
+-   Nenhum espaço deve separar um operador unário e seu operando exceto quando
+    o operador é uma palavra como `typeof`.
+-   Todo ; (ponto e vírgula) na parte de controle de uma declaração `for` deve
+    ser seguida por um espaço.
+-   Um espaço em branco deve ser colocado depois de toda , (vírgula).
 
-Bonus Suggestions
------------------
+Sugestões Bônus
+---------------
 
-### `{}` and `[]`
+### `{}` e `[]`
 
-Use `{}` instead of `new Object()`. Use `[]` instead of `new Array()`.
+Use `{}` em vez de `new Object()`. Use `[]` em vez de `new Array()`.
 
-Use arrays when the member names would be sequential integers. Use
-objects when the member names are arbitrary strings or names.
+Use arrays quando os nomes dos membros puderem ser uma sequência de
+inteiros. Use objetos quando os nomes dos membros forem strings ou nomes
+arbitrários.
 
-### `,` (comma) Operator
+### Operador `,` (vírgula)
 
-Avoid the use of the comma operator except for very disciplined use in
-the control part of `for` statements. (This does not apply to the comma
-separator, which is used in object literals, array literals, `var`
-statements, and parameter lists.)
+Evite o uso do operador vírgula exceto para utilização muito disciplinada na parte
+de controle das declarações `for`. (Isso não se aplica ao separador vírgula,
+que é usado nos objetos literais, arrays literais, declarações `var` e listas
+de parâmetros).
 
-### Block Scope
+### Escopo de Bloco
 
-In JavaScript blocks do not have scope. Only functions have scope. Do
-not use blocks except as required by the compound statements.
+Nos blocos JavaScript não existe escopo. Apenas funções tem escopo. Não
+utilize blocos a menos que seja exigido pelas declarações compostas.
 
-### Assignment Expressions
+### Expressões de Atribuição
 
-Avoid doing assignments in the condition part of `if` and `while`
-statements.
-
-Is
+Evite fazer atribuições nas partes condicionais das declarações `if` e
+`while`.
 
         if (a = b) {
 
-a correct statement? Or was
+é uma declaração correta? Ou
 
         if (a == b) {
 
-intended? Avoid constructs that cannot easily be determined to be
-correct.
+era o pretendido? Evite construções que não podem ser facilmente
+entendidas como sendo corretas.
 
-### `===` and `!==` Operators.
+### Operadores `===` e `!==`.
 
-It is almost always better to use the `===` and `!==` operators. The
-`==` and `!=` operators do type coercion. In particular, do not use `==`
-to compare against falsy values.
+É quase sempre melhor usar os operadores `===` e `!==`. Os operadores
+`==` e `!=` fazem conversão de tipo. Em especial, não use `==`
+para comparar valores falsos.
 
-### Confusing Pluses and Minuses
+### Confundindo Mais e Menos
 
-Be careful to not follow a `+` with `+` or `++`. This pattern can be
-confusing. Insert parens between them to make your intention clear.
+Tome cuidado para não colocar depois de um `+` outro `+` ou `++`. Esse
+padrão pode ser confuso. Coloque parênteses entre eles para deixar
+clara a sua intenção.
 
         total = subtotal + +myInput.value;
 
-is better written as
+é melhor escrito assim
 
         total = subtotal + (+myInput.value);
 
-so that the `+ +` is not misread as `++`.
+pois o `+ +` não será entendido como `++`.
 
-### `eval` is Evil
+### `eval` is Evil (`eval` é do mal!)
 
-The `eval` function is the most misused feature of JavaScript. Avoid it.
+A função `eval` é a funcionalidade mais mal utilizada do JavaScript. Evite-a.
 
-`eval` has aliases. Do not use the `Function` constructor. Do not pass
-strings to `setTimeout` or `setInterval`.
+`eval` tem pseudônimos. Não use o construtor `Function`. Não passe
+strings para `setTimeout` ou `setInterval`.

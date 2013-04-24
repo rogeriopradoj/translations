@@ -32,7 +32,7 @@ As correções de bug que não afetam a API incrementam a versão patch, mudanç
 adições compatíveis com a API anterior incrementam a versão minor, e mudanças
 incompatíveis com a API anterior incrementam a versão major.
 
-Eu chamo esse sistema de "Versionamento Semântico." Nesse esqueme, os números
+Eu chamo esse sistema de "Versionamento Semântico". Nesse esquema, os números
 de versões e a maneira como eles mudam trazem sentido sobre o código ali
 embaixo e sobre o que foi modificado de uma versão para outra.
 
@@ -234,7 +234,7 @@ para que os usuários possam fazer uma transição sem problemas para a nova API
 Sobre
 -----
 
-A especificação do Versioamento Semântico tem autoria de [Tom
+A especificação do Versionamento Semântico tem autoria de [Tom
 Preston-Werner](http://tom.preston-werner.com), inventor do Gravatars
 e co-fundador do Github.
 

@@ -1,29 +1,42 @@
-#Translations by rogeriopradoj
+# Translations by rogeriopradoj
+
+<!-- TOC -->
+
+- [Translations by rogeriopradoj](#translations-by-rogeriopradoj)
+    - [en](#en)
+        - [Done](#done)
+    - [pt_BR](#pt_br)
+        - [Feitos](#feitos)
+
+<!-- /TOC -->
 
 * [blog][blog]
 * [github][github]
 * [twitter][twitter]
 * [about.me][about.me]
 
-##en
+## en
+
 Designed to keep the translations I do of some interesting articles I find in web.
 
-* /original : Here you find the original articles
-* /translated : Here is the translated ones
+* [/original : Here you find the original articles](original)
+* [/translated : Here is the translated ones](translated)
 
-###Done
+### Done
 
 * [1___] **A successful Git branching model** - http://nvie.com/posts/a-successful-git-branching-model/
 * [2___] **Semantic Versioning 2.0.0-rc.1** - http://semver.org/
 * [3___] **Code Conventions for the JavaScript Programming Language** - http://javascript.crockford.com/code.html
 
-##pt_BR
+## pt_BR
+
 Criado para manter as traduções que faço de artigos interessantes da web.
 
-* /original : Aqui ficam os artigos originais
-* /translated : E aqui ficam os traduzidos
+* [/original : Aqui ficam os artigos originais](original)
+* [/translated : E aqui ficam os traduzidos](translated)
 
-###Feitos
+### Feitos
+
 * [1___] **Um modelo bem sucedido para branch no Git**
 * [2___] **Versionamento Semântico 2.0.0-rc.1**
 * [3___] **Convenções de Código para a Linguagem de Programação JavaScript**

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/ -->
+<html lang="en-us"><head prefix="og: http://ogp.me/ns#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta property="og:locale" content="en_US">
+
+  <meta name="author" content="William Durand">
+
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>
+    
+      DDD with Symfony2: Making Things Clear · William Durand
+    
+  </title>
+
+  
+  <meta property="og:title" content="DDD with Symfony2: Making Things Clear">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/">
+  <meta property="og:description" content="">
+  
+  <meta property="article:published_time" content="2013-08-20T00:00:00+00:00">
+  
+  
+  
+  <meta content="PHP" property="article:tag">
+  
+  <meta content="DDD" property="article:tag">
+  
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@couac">
+  <meta name="twitter:creator" content="@couac">
+  <meta name="twitter:title" content="DDD with Symfony2: Making Things Clear">
+  <meta name="twitter:description" content="">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./html_files/poole.css">
+  <link rel="stylesheet" href="./html_files/syntax.css">
+  <link rel="stylesheet" href="./html_files/lanyon.css">
+  <link rel="stylesheet" href="./html_files/font-awesome.min.css">
+  <link rel="stylesheet" href="./html_files/css">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="https://williamdurand.fr/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://williamdurand.fr/atom.xml">
+<script type="text/javascript" async="" src="./html_files/embed.js.download"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.18d379cad07465ce7a6b8f0d4799ef44.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.e9b4803ecd9f11a1b0b249822211345c.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.77f1c6b9b94d2ef16b4a55aa4fc401a5.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head>
+
+
+  <body tcap-name="main">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Hi! I'm <a href="https://www.twitter.com/couac">Will</a>.
+<br>
+<br>
+Lifelong learner. OSS evangelist. Traveler. Runner. Speaker. Web worker at Mozilla.
+<br>
+<br>
+<small>
+<a href="mailto:will@drnd.me">will@drnd.me</a> | <a href="http://pgp.mit.edu/pks/lookup?op=get&amp;search=0xa509bcf1c1274f3b">0xa509bcf1c1274f3b</a>
+</small>
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://williamdurand.fr/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://williamdurand.fr/books/">Bookshelf</a>
+        
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://williamdurand.fr/publications/">Publications</a>
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://williamdurand.fr/talks/">Talks</a>
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://williamdurand.fr/trips/">Trips</a>
+        
+      
+    
+
+    <span class="sidebar-nav-item">
+      <i class="fa fa-external-link"></i>&nbsp;<a href="https://williamdurand.fr/atom.xml">RSS</a>
+    </span>
+  </nav>
+
+  <div class="sidebar-item">
+    <ul class="social-links">
+      <li>
+        <i class="fa fa-github"></i>&nbsp;<a href="https://www.github.com/willdurand">GitHub</a>
+      </li>
+      <li>
+        <i class="fa fa-twitter"></i>&nbsp;<a href="https://www.twitter.com/couac">Twitter</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="menu-hint hide-on-mobile"></div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://williamdurand.fr/" title="Home">William Durand</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+    <div class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <h1 class="post-title" itemprop="name">DDD with Symfony2: Making Things Clear</h1>
+
+  <span class="post-date">
+    
+    <time pubdate="pubdate" datetime="2013-08-20T00:00:00+00:00">
+      <meta itemprop="datePublished" content="2013-08-20T00:00:00+00:00">
+      20 August 2013 —
+    </time>
+    Clermont-Fd Area, France
+  </span>
+
+  
+
+  
+
+  <div itemprop="articleBody">
+    <p><a href="http://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design</a> also
+known as <strong>DDD</strong> is an approach to develop software for complex needs by
+connecting the implementation to an evolving model. <a href="http://dddcommunity.org/learning-ddd/what_is_ddd/">It is a way of thinking and
+a set of priorities, aimed at accelerating software projects that have to deal
+with complicated domains</a>.</p>
+
+<p>It is possible to use this approach in a Symfony2 project, and that is what I am
+going to introduce in a series of blog posts. You will learn how to build an
+<a href="https://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/">application that manages users through a REST
+API</a> using <strong>D</strong>omain
+<strong>D</strong>riven <strong>D</strong>esign.</p>
+
+<p>This is the second article of this series! You should read <a href="https://williamdurand.fr/2013/08/07/ddd-with-symfony2-folder-structure-and-code-first/">Folder Structure
+And Code First</a>
+before digging into that one. This blog post is an attempt to fix a few
+misunderstandings coming from the <a href="https://williamdurand.fr/2013/08/07/ddd-with-symfony2-folder-structure-and-code-first/">first
+post</a>. I
+recommend you to quickly jump to all links, they are valuable!</p>
+
+<h2 id="ddd-is-not-rad">DDD Is Not RAD<a class="anchor-link" href="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/#ddd-is-not-rad">¶</a></h2>
+
+<p>Domain Driven Design is <strong>not</strong> a <strong>fast</strong> way to build a software. It is not
+<a href="http://en.wikipedia.org/wiki/Rapid_application_development">RAD</a> at all! It
+implies a lot of boilerplate code, tons of classes, and so on. No, really. It
+is not the fastest way to write an application. No one ever said that DDD was
+simple or easy.</p>
+
+<p>However, it is able to <strong>ease your life when you have to deal with complex
+business expectations</strong>. <em>How?</em> By considering your domain (also known as your
+business) as the heart of your application. Honestly, DDD should be used in a
+rather <strong>large application</strong>, with complex business rules and scenarios. Don’t
+use it if you are building a blog, it does not make much sense (even if it is
+probably the best way to learn the hard way). So question is <a href="http://shishkin.wordpress.com/2008/10/10/when-to-use-domain-driven-design/">when to use
+DDD?</a>
+I would say when your domain is very complex, or when the business requirements
+change fast.</p>
+
+<h2 id="there-is-no-database">There Is No Database<a class="anchor-link" href="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/#there-is-no-database">¶</a></h2>
+
+<p>In DDD, we <strong>don’t consider any databases</strong>. <a href="http://devlicio.us/blogs/casey/archive/2009/02/12/ddd-there-is-no-database.aspx">DDD is all about the domain, not
+about the database, and Persistence Ignorance (PI) is a very important aspect of
+DDD</a>.</p>
+
+<p>With <strong>Persistence Ignorance</strong>, we try and eliminate all knowledge from our
+business objects of how, where, why or even if they will be stored somewhere.
+Persistence Ignorance means that <a href="http://stackoverflow.com/questions/905498/what-are-the-benefits-of-persistence-ignorance">the business logic itself doesn’t know about
+persistence</a>.
+In other words, <strong>your Entities should not be tied to any persistence layer or
+framework</strong>.</p>
+
+<p>So, don’t expect me to make choices because it works better with Doctrine, Propel
+or whatever. This is not how we should use DDD. We, as <a href="http://devlicio.us/blogs/casey/archive/2008/09/10/the-tao-of-domain-driven-design.aspx">developers, need to
+become part of our business users domains, we need to stop thinking in technical
+terms and constructs, and need to immerse ourselves in the world our business
+users inhabit</a>.</p>
+
+<h2 id="ddd-and-rest">DDD And REST<a class="anchor-link" href="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/#ddd-and-rest">¶</a></h2>
+
+<p>By now, I use a REST API as <strong>Presentation Layer</strong>. It is <strong>perfectly doable</strong>
+and, even if <a href="http://dontpanic.42.nl/2012/04/rest-and-ddd-incompatible.html">both concepts seem opposites, they play nice
+together</a>. Remember that
+one of the <strong>strengths</strong> of DDD is the <strong>separation of concerns</strong> thanks to
+<a href="https://williamdurand.fr/2013/08/07/ddd-with-symfony2-folder-structure-and-code-first/#conclusion">distinct
+layers</a>.
+I am afraid that people think that it is not possible to play with both at the same
+time because <a href="http://blog.steveklabnik.com/posts/2011-07-03-nobody-understands-rest-or-http">nobody understands REST or
+HTTP</a>.</p>
+
+<p>Basically, <a href="http://stackoverflow.com/questions/10943758/is-it-good-to-return-domain-model-from-rest-api-over-a-ddd-application">you should not expose your Domain Model as-is over a public
+interface</a>
+such as a REST API. That is why you should <a href="http://neverstopbuilding.net/the-dto-pattern-how-to-generate-php-dtos-quickly-with-dtox/">use
+Data Transfer Objects</a>
+(<a href="http://en.wikipedia.org/wiki/Data_transfer_object">DTOs</a>). DTOs are <strong>simple
+objects</strong> that <strong>should not contain any business logic</strong> that would require
+testing by the way. A DTO could be seen as a PHP <code class="highlighter-rouge">array</code> actually.</p>
+
+<p>What you should do here is to write a REST API that <strong>exposes resources that
+make sense for the clients</strong> (the clients that consume your API), and that are
+not always 1-1 with your Domain Model. See these resources as DTOs. For
+instance, if you deal with <em>Orders</em> and <em>Payments</em>, you could <strong>create</strong> a
+<em>transaction</em> resource to perform the business operation
+<code class="highlighter-rouge">payOrder(Order $order, Payment $payment)</code> as proposed by Jonathan Bensaid in
+<a href="http://williamdurand.fr/2013/08/07/ddd-with-symfony2-folder-structure-and-code-first/#comment-1006445621">the comments of the previous
+article</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /transactions
+orderId=123&amp;paymentId=456&amp;...
+</code></pre></div></div>
+
+<p>The <strong>Application Layer</strong> will receive the data from the <strong>Presentation Layer</strong>
+and call the <strong>Domain Layer</strong>. This <code class="highlighter-rouge">transaction</code> is a DTO. It is not part of
+the domain but it is useful to exchange information between the Presentation and
+the Application layers.</p>
+
+<p>However, in the previous article I was able to directly map my <code class="highlighter-rouge">User</code> Entity to
+resources of type <em>users</em>. But if you look at the whole thing, I used a
+Serializer component to only expose some properties. That is actually another
+sort of DTO. The Entity is transformed to only expose data that are relevant for
+the clients (the clients that consume your API). So it is ok(-ish)!</p>
+
+<p>Also, note that HTTP methods explicitly delineate commands and
+queries. That means <strong>Command Query Responsibility Separation</strong>
+<a href="http://martinfowler.com/bliki/CQRS.html">CQRS</a> <strong>maps directly to HTTP</strong>. Hurray!</p>
+
+<h2 id="so-whats-next">So, What’s Next?<a class="anchor-link" href="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/#so-whats-next">¶</a></h2>
+
+<p>In this series, I will introduce a more complex business, don’t worry! Hopefully
+I was clear enough to explain my choices regarding this series, and I fixed some
+misconceptions about DDD, RAD, and REST.</p>
+
+<p>In the next blog post, I will introduce the <strong>Presentation Layer</strong>, new Value
+Objects such as the <code class="highlighter-rouge">Name</code> one, and more on <strong>DDD</strong>! At the end of the next
+post, you will basically get a CRUD-ish application. Yes, I know… <a href="http://verraes.net/2013/04/crud-is-an-anti-pattern/">CRUD is an
+anti-pattern</a>, but it does
+not mean you should avoid it all the time. Creating new <em>users</em> make sense
+afterall.</p>
+
+<p>The third post will allow you to create almost everything you need in the
+different DDD layers to build a strong and powerful domain, with complex logic,
+and so on. You may not get why DDD is great until that, so don’t panic and stay
+tuned!</p>
+
+  </div>
+
+  <em class="fork-and-edit">
+    By the way, if you found a typo, please <a href="https://github.com/willdurand/willdurand.github.io/edit/master/_posts/2013-08-20-ddd-with-symfony2-making-things-clear.markdown">fork and edit this post</a>. Thank you so much! This post is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+  </em>
+
+  <p class="christmas">
+      If you like this post or if you use one of the <a href="https://github.com/willdurand">Open Source projects</a>
+      I maintain, <a href="mailto:will@drnd.me">say hello by email</a>.
+      There is also my <a href="https://amzn.com/w/2XWTWY0NSR9XT">Amazon Wish List</a>. Thank you ♥
+  </p>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts" itemscope="" itemtype="https://schema.org/Blog">
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2017/03/13/reviewing-the-flexispot-workstation/" itemprop="name">
+            Reviewing the FlexiSpot Desktop Workstation 27 inches
+          </a>
+          <time datetime="2017-03-13T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2017-03-13T00:00:00+00:00">13 Mar 2017</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2016/05/16/phd-check/" itemprop="name">
+            PhD: ✓
+          </a>
+          <time datetime="2016-05-16T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2016-05-16T00:00:00+00:00">16 May 2016</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2016/01/21/patching-linux-kernel-raspbian/" itemprop="name">
+            Patching Linux Kernel (Raspbian &amp; CVE-2016-0728)
+          </a>
+          <time datetime="2016-01-21T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2016-01-21T00:00:00+00:00">21 Jan 2016</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2016/01/16/my-life-on-the-internets-a-year-later/" itemprop="name">
+            My Life On The Internets: A Year Later
+          </a>
+          <time datetime="2016-01-16T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2016-01-16T00:00:00+00:00">16 Jan 2016</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2015/09/08/level-up/" itemprop="name">
+            Level Up
+          </a>
+          <time datetime="2015-09-08T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2015-09-08T00:00:00+00:00">08 Sep 2015</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2015/06/02/video-nobody-understands-rest/" itemprop="name">
+            [Video] Nobody Understands REST, but That's Ok ;-)
+          </a>
+          <time datetime="2015-06-02T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2015-06-02T00:00:00+00:00">02 Jun 2015</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2015/04/11/on-capifony-and-its-future/" itemprop="name">
+            On capifony and its Future
+          </a>
+          <time datetime="2015-04-11T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2015-04-11T00:00:00+00:00">11 Apr 2015</small>
+          </time>
+        </h3>
+      </li>
+    
+      <li itemscope="" itemtype="https://schema.org/BlogPosting">
+        <h3>
+          <a href="https://williamdurand.fr/2015/03/17/playing-with-a-esp8266-wifi-module/" itemprop="name">
+            Playing With a ESP8266 WiFi Module
+          </a>
+          <time datetime="2015-03-17T00:00:00+00:00">
+            <small><meta itemprop="datePublished" content="2015-03-17T00:00:00+00:00">17 Mar 2015</small>
+          </time>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<section class="post-comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"><iframe id="dsq-app5218" name="dsq-app5218" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./html_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 2392px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+</section>
+
+<script type="text/javascript">
+    var disqus_shortname = 'williamdurand';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+      <a href="https://www.github.com/willdurand/willdurand.github.io" class="ribbon">
+          <img style="position: absolute; top: 0; right: 0; border: 0;" src="./html_files/forkme.png" alt="Fork me on GitHub" width="149" height="149">
+      </a>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="./html_files/jquery.min.js.download"></script>
+    <script>window.jQuery || document.write('<script src="/js/jquery-1.6.2.min.js"><\/script>')</script>
+    <script src="./html_files/jquery.ui.totop.js.download" type="text/javascript"></script>
+    <script src="./html_files/anchorify.js.download" type="text/javascript"></script>
+    <script>
+      $().UItoTop();
+      $('.post h2, .post h3, .post h4, .post h5, .post h6').anchorify();
+
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script><a href="https://williamdurand.fr/2013/08/20/ddd-with-symfony2-making-things-clear/#" id="toTop" style="display: none;"><span id="toTopHover"></span>To Top</a>
+  
+
+<iframe style="display: none;" src="./html_files/saved_resource(1).html"></iframe><div id="droplr-chrome-extension-is-installed" style="display: none;"></div></body></html>
